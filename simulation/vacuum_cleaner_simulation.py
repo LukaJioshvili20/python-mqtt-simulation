@@ -1,9 +1,12 @@
 import json
 import time
 
+from broker import MQTTManager
+from devices import VacuumCleaner
+
 
 class VacuumCleanerSimulation:
-    def __init__(self, vacuum_cleaner, mqtt_manager):
+    def __init__(self, vacuum_cleaner: VacuumCleaner, mqtt_manager: MQTTManager):
         self.vacuum_cleaner = vacuum_cleaner
         self.mqtt_manager = mqtt_manager
 

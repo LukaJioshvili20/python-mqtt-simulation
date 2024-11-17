@@ -1,9 +1,12 @@
 import json
 import time
 
+from broker import MQTTManager
+from devices import IndoorSensor
+
 
 class IndoorSensorSimulation:
-    def __init__(self, indoor_sensor, mqtt_manager):
+    def __init__(self, indoor_sensor: IndoorSensor, mqtt_manager: MQTTManager):
         self.indoor_sensor = indoor_sensor
         self.mqtt_manager = mqtt_manager
 

@@ -1,9 +1,12 @@
 import json
 import time
 
+from broker import MQTTManager
+from devices import LightSwitch
+
 
 class LightSwitchSimulation:
-    def __init__(self, light_switch, mqtt_manager):
+    def __init__(self, light_switch: LightSwitch, mqtt_manager: MQTTManager):
         self.light_switch = light_switch
         self.mqtt_manager = mqtt_manager
 

@@ -1,10 +1,13 @@
 import json
 import time
 
+from broker import MQTTManager
+from devices import OutdoorSensor
+
 
 class OutdoorSensorSimulation:
-    def __init__(self, indoor_sensor, mqtt_manager):
-        self.indoor_sensor = indoor_sensor
+    def __init__(self, outdoor_sensor: OutdoorSensor, mqtt_manager: MQTTManager):
+        self.outdoor_sensor = outdoor_sensor
         self.mqtt_manager = mqtt_manager
 
     def simulate(self):
@@ -15,11 +18,11 @@ class OutdoorSensorSimulation:
 
     def simulate_step(self):
         """Simulate one step for the indoor sensor."""
-        if self.indoor_sensor.powered:
-            data = self.indoor_sensor.generate_data()
-            topic = f"home/{self.indoor_sensor.group_id}/{self.indoor_sensor.device_type}/{self.indoor_sensor.device_id}/update"
+        if self.outdoor_sensor.powered:
+            data = self.outdoor_sensor.generate_data()
+            topic = f"home/{self.outdoor_sensor.group_id}/{self.outdoor_sensor.device_type}/{self.outdoor_sensor.device_id}/update"
             self.mqtt_manager.publish(topic, json.dumps(data))
         else:
             print(
-                f"{self.indoor_sensor.device_type} {self.indoor_sensor.device_id} is powered OFF."
+                f"{self.outdoor_sensor.device_type} {self.outdoor_sensor.device_id} is powered OFF."
             )
