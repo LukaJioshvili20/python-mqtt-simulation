@@ -16,17 +16,19 @@ class VacuumCleanerSimulation:
     def simulate_step(self):
         """Simulate one step for the vacuum cleaner."""
         if self.vacuum_cleaner.powered:
-            data = self.vacuum_cleaner.generate_state()
+            state = self.vacuum_cleaner.generate_state()
 
-            if data["state"] == "Idle":
+            if state["state"] == "Idle":
                 self.vacuum_cleaner.start_cleaning()
             else:
                 self.vacuum_cleaner.stop_cleaning()
 
-            data = self.vacuum_cleaner.generate_state()
+            state = self.vacuum_cleaner.generate_state()
+
+            print(f"vacuum data {state}")
 
             topic = f"home/{self.vacuum_cleaner.group_id}/{self.vacuum_cleaner.device_type}/{self.vacuum_cleaner.device_id}/command/update"
-            self.mqtt_manager.publish(topic, json.dumps(data))
+            self.mqtt_manager.publish(topic, json.dumps(state))
         else:
             print(
                 f"{self.vacuum_cleaner.device_type} {self.vacuum_cleaner.device_id} is powered OFF."

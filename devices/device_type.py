@@ -6,7 +6,7 @@ class DeviceType(Enum):
     Enum for device types to standardize device names across the project.
     """
 
-    # ALL_DEVICES = "All devices"
+    ALL_DEVICES = "All devices"
     DOOR_SENSOR = "Door Sensor"
     INDOOR_SENSOR = "Indoor Sensor"
     OUTDOOR_SENSOR = "Outdoor Sensor"

@@ -1,3 +1,4 @@
+import threading
 import time
 
 from broker import MQTTManager
@@ -54,27 +55,53 @@ def main():
     selection = DeviceSelector()
     device_selected = selection.get_selection()
 
-    if device_selected == "Door Sensor":
-        door_simulation = DoorSensorSimulation(door_sensor, mqtt_manager)
-        door_simulation.simulate()
-    elif device_selected == "Indoor Sensor":
-        indoor_sensor_simulation = IndoorSensorSimulation(indoor_sensor, mqtt_manager)
-        indoor_sensor_simulation.simulate()
-    elif device_selected == "Outdoor Sensor":
-        outdoor_sensor_simulation = OutdoorSensorSimulation(
-            outdoor_sensor, mqtt_manager
-        )
-        outdoor_sensor_simulation.simulate()
-    elif device_selected == "Light Switch":
-        light_switch_simulation = LightSwitchSimulation(light_switch, mqtt_manager)
-        light_switch_simulation.simulate()
-    elif device_selected == "Vacuum Cleaner":
-        vacuum_cleaner_simulation = VacuumCleanerSimulation(
-            vacuum_cleaner, mqtt_manager
-        )
-        vacuum_cleaner_simulation.simulate()
+    # Devices and their corresponding simulation classes
+    device_simulations = {
+        "Door Sensor": (door_sensor, DoorSensorSimulation),
+        "Indoor Sensor": (indoor_sensor, IndoorSensorSimulation),
+        "Outdoor Sensor": (outdoor_sensor, OutdoorSensorSimulation),
+        "Light Switch": (light_switch, LightSwitchSimulation),
+        "Vacuum Cleaner": (vacuum_cleaner, VacuumCleanerSimulation),
+    }
+
+    if device_selected == "All devices":
+        print("Starting simulation for all devices... Press Ctrl+C to stop.")
+        threads = []
+        for device_name, (device, simulation_class) in device_simulations.items():
+            # Create a thread for each device simulation
+            thread = threading.Thread(
+                target=start_simulation, args=(device, simulation_class, mqtt_manager)
+            )
+            thread.daemon = True  # Allows threads to exit when the main program exits
+            threads.append(thread)
+            thread.start()
+
+        # Keep the main thread alive
+        try:
+            while True:
+                pass
+        except KeyboardInterrupt:
+            print("\nSimulation interrupted by user.")
+    else:
+        # Single device simulation
+        device, simulation_class = device_simulations[device_selected]
+        simulation = simulation_class(device, mqtt_manager)
+        simulation.simulate()
 
     mqtt_manager.stop()
+
+
+def start_simulation(device, simulation_class, mqtt_manager):
+    """
+    Start simulation for a single device in a thread.
+
+    Args:
+        device: The device instance.
+        simulation_class: The simulation class to use.
+        mqtt_manager: The MQTTManager instance.
+    """
+    simulation = simulation_class(device, mqtt_manager)
+    simulation.simulate()
 
 
 if __name__ == "__main__":

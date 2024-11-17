@@ -1,13 +1,13 @@
-from devices.device import Device
-
-
 from enum import Enum
+
+from devices.device import Device
 
 
 class VacuumCleanerState(Enum):
     """
     Enum for vacuum cleaner state.
     """
+
     IDLE = "Idle"
     CLEANING = "Cleaning"
 
@@ -27,5 +27,5 @@ class VacuumCleaner(Device):
         self.state = VacuumCleanerState.IDLE
 
     def generate_state(self):
-        """Generate the current state of the vacuum cleaner."""
-        return {"state": self.state}
+        """Generate the current state of    the vacuum cleaner."""
+        return {"state": self.state.value}
