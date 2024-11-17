@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27dd6ce1-dd6f-49fc-b1b2-118e22a930fe" name="Changes" comment="feat: update manual">
-      <change beforePath="$PROJECT_DIR$/devices/device_type.py" beforeDir="false" afterPath="$PROJECT_DIR$/devices/device_type.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/devices/vacuum_cleaner.py" beforeDir="false" afterPath="$PROJECT_DIR$/devices/vacuum_cleaner.py" afterDir="false" />
+    <list default="true" id="27dd6ce1-dd6f-49fc-b1b2-118e22a930fe" name="Changes" comment="fix: vacuum simulation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation/vacuum_cleaner_simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/vacuum_cleaner_simulation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +62,7 @@
       <option name="presentableId" value="Default" />
       <updated>1731854674609</updated>
       <workItem from="1731854675948" duration="527000" />
-      <workItem from="1731855216674" duration="3581000" />
+      <workItem from="1731855216674" duration="3990000" />
     </task>
     <task id="LOCAL-00001" summary="feat: update manual">
       <option name="closed" value="true" />
@@ -74,7 +72,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731858506167</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix: vacuum simulation">
+      <option name="closed" value="true" />
+      <created>1731858884755</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731858884755</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -82,6 +88,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: update manual" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: update manual" />
+    <MESSAGE value="fix: vacuum simulation" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: vacuum simulation" />
   </component>
 </project>

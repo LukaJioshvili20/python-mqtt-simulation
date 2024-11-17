@@ -2,6 +2,7 @@ import threading
 import time
 
 from broker import MQTTManager
+from devices import DeviceType
 from devices import (
     DoorSensor,
     IndoorSensor,
@@ -31,17 +32,10 @@ def main():
 
     time.sleep(2)
 
-    # Home Doors
     door_sensor = DoorSensor("group1", "device1", mqtt_manager)
-
-    # Temp x Humidity Sensors
     indoor_sensor = IndoorSensor("group2", "device3", mqtt_manager)
     outdoor_sensor = IndoorSensor("group2", "device4", mqtt_manager)
-
-    # Light switched
     light_switch = LightSwitch("group3", "device5", mqtt_manager)
-
-    # Vacuum Cleaner
     vacuum_cleaner = VacuumCleaner("group4", "device7", mqtt_manager)
 
     door_sensor.power_on()
@@ -57,22 +51,21 @@ def main():
 
     # Devices and their corresponding simulation classes
     device_simulations = {
-        "Door Sensor": (door_sensor, DoorSensorSimulation),
-        "Indoor Sensor": (indoor_sensor, IndoorSensorSimulation),
-        "Outdoor Sensor": (outdoor_sensor, OutdoorSensorSimulation),
-        "Light Switch": (light_switch, LightSwitchSimulation),
-        "Vacuum Cleaner": (vacuum_cleaner, VacuumCleanerSimulation),
+        DeviceType.DOOR_SENSOR: (door_sensor, DoorSensorSimulation),
+        DeviceType.INDOOR_SENSOR: (indoor_sensor, IndoorSensorSimulation),
+        DeviceType.OUTDOOR_SENSOR: (outdoor_sensor, OutdoorSensorSimulation),
+        DeviceType.LIGHT_SWITCH: (light_switch, LightSwitchSimulation),
+        DeviceType.VACUUM_CLEANER: (vacuum_cleaner, VacuumCleanerSimulation),
     }
 
-    if device_selected == "All devices":
+    if device_selected == DeviceType.ALL_DEVICES.value:
         print("Starting simulation for all devices... Press Ctrl+C to stop.")
         threads = []
         for device_name, (device, simulation_class) in device_simulations.items():
-            # Create a thread for each device simulation
             thread = threading.Thread(
                 target=start_simulation, args=(device, simulation_class, mqtt_manager)
             )
-            thread.daemon = True  # Allows threads to exit when the main program exits
+            thread.daemon = True
             threads.append(thread)
             thread.start()
 
@@ -83,7 +76,6 @@ def main():
         except KeyboardInterrupt:
             print("\nSimulation interrupted by user.")
     else:
-        # Single device simulation
         device, simulation_class = device_simulations[device_selected]
         simulation = simulation_class(device, mqtt_manager)
         simulation.simulate()
