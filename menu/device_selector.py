@@ -2,6 +2,7 @@ import curses
 
 from devices import DeviceType
 
+
 class DeviceSelector:
     """
     A class for selecting devices to simulate, supporting both curses-based
@@ -51,7 +52,7 @@ class DeviceSelector:
             elif key == curses.KEY_ENTER or key in [10, 13]:  # Enter key
                 return self.devices[current_selection]  # Return the selected device
 
-    def fallback_menu(self):
+    def fallback_menu(self)->DeviceType:
         """
         Fallback text-based menu for non-interactive environments.
 
@@ -65,7 +66,7 @@ class DeviceSelector:
         choice = input("Enter the number of your choice: ").strip()
         return self.devices[int(choice) - 1]
 
-    def get_selection(self):
+    def get_selection(self)->DeviceType:
         """
         Displays the device selection menu, falling back to text-based if curses fails.
 

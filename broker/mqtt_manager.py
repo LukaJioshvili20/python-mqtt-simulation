@@ -31,6 +31,7 @@ class MQTTManager:
         except ValueError:
             print("Invalid input. Defaulting to port 1883.")
             self.port = 1883
+
         print(f"Configured MQTT broker: {self.broker}:{self.port}")
 
     def connect(self) -> None:

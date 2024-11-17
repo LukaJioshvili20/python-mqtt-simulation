@@ -1,3 +1,4 @@
+import json
 import time
 
 
@@ -10,15 +11,16 @@ class LightSwitchSimulation:
         """Simulate the light switch and publish its state."""
         while True:
             self.simulate_step()
-            time.sleep(4)  # Simulate every 4 seconds
+            time.sleep(15)  # Simulate every 4 seconds
 
     def simulate_step(self):
         """Simulate one step for the light switch."""
         if self.light_switch.powered:
-            state = self.light_switch.toggle_state()
+            self.light_switch.toggle()
+            state = self.light_switch.generate_state()
+
             topic = f"home/{self.light_switch.group_id}/{self.light_switch.device_type}/{self.light_switch.device_id}/state/update"
-            self.mqtt_manager.publish(topic, state)
-            print(f"Published to {topic}: {state}")
+            self.mqtt_manager.publish(topic, json.dumps(state))
         else:
             print(
                 f"{self.light_switch.device_type} {self.light_switch.device_id} is powered OFF."

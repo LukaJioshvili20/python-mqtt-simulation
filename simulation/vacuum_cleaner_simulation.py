@@ -1,3 +1,4 @@
+import json
 import time
 
 
@@ -10,15 +11,22 @@ class VacuumCleanerSimulation:
         """Simulate the vacuum cleaner and publish its commands."""
         while True:
             self.simulate_step()
-            time.sleep(5)  # Simulate every 5 seconds
+            time.sleep(30)  # Simulate every 5 seconds
 
     def simulate_step(self):
         """Simulate one step for the vacuum cleaner."""
         if self.vacuum_cleaner.powered:
-            command = self.vacuum_cleaner.generate_command()
+            data = self.vacuum_cleaner.generate_state()
+
+            if data["state"] == "Idle":
+                self.vacuum_cleaner.start_cleaning()
+            else:
+                self.vacuum_cleaner.stop_cleaning()
+
+            data = self.vacuum_cleaner.generate_state()
+
             topic = f"home/{self.vacuum_cleaner.group_id}/{self.vacuum_cleaner.device_type}/{self.vacuum_cleaner.device_id}/command/update"
-            self.mqtt_manager.publish(topic, command)
-            print(f"Published to {topic}: {command}")
+            self.mqtt_manager.publish(topic, json.dumps(data))
         else:
             print(
                 f"{self.vacuum_cleaner.device_type} {self.vacuum_cleaner.device_id} is powered OFF."

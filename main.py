@@ -1,8 +1,20 @@
-from broker.mqtt_manager import MQTTManager
-from menu import DeviceSelector
-from simulation.simulation_controller import SimulationController
+import time
 
-from devices import DeviceType
+from broker import MQTTManager
+from devices import (
+    DoorSensor,
+    IndoorSensor,
+    LightSwitch,
+    VacuumCleaner,
+)
+from menu import DeviceSelector
+from simulation import (
+    IndoorSensorSimulation,
+    LightSwitchSimulation,
+    OutdoorSensorSimulation,
+    VacuumCleanerSimulation,
+    DoorSensorSimulation,
+)
 
 
 def main():
@@ -16,82 +28,53 @@ def main():
     mqtt_manager.connect()
     mqtt_manager.start()
 
-    try:
-        # Step 2: Display device selection menu
-        selector = DeviceSelector()
-        selected_device = selector.get_selection()
-        print(f"You selected: {selected_device}")
+    time.sleep(2)
 
-        # Step 3: Initialize the Simulation Controller
-        controller = SimulationController(mqtt_manager)
+    # Home Doors
+    door_sensor = DoorSensor("group1", "device1", mqtt_manager)
 
-        # Step 4: Power on all devices or the selected device
-        if selected_device == "All devices":
-            power_on_all_devices(controller, mqtt_manager)
-        else:
-            power_on_device(controller, selected_device, mqtt_manager)
+    # Temp x Humidity Sensors
+    indoor_sensor = IndoorSensor("group2", "device3", mqtt_manager)
+    outdoor_sensor = IndoorSensor("group2", "device4", mqtt_manager)
 
-        # Step 5: Subscribe to appropriate topics
-        if selected_device == "All devices":
-            # Subscribe to the root topic to listen to all messages
-            mqtt_manager.subscribe(
-                "home/#", lambda client, userdata, message: print_message(message)
-            )
-        else:
-            # Subscribe to topics for the selected device
-            base_topic = f"home/{selected_device.replace(' ', '_').lower()}/#"
-            mqtt_manager.subscribe(
-                base_topic, lambda client, userdata, message: print_message(message)
-            )
+    # Light switched
+    light_switch = LightSwitch("group3", "device5", mqtt_manager)
 
-        # Step 6: Start the simulation
-        if selected_device == "All devices":
-            controller.simulate_all_devices()
-        else:
-            controller.simulate_device(selected_device)
-    except KeyboardInterrupt:
-        print("\nSimulation interrupted by user.")
-    finally:
-        # Ensure the MQTT manager is stopped gracefully on exit
-        mqtt_manager.stop()
+    # Vacuum Cleaner
+    vacuum_cleaner = VacuumCleaner("group4", "device7", mqtt_manager)
 
+    door_sensor.power_on()
+    indoor_sensor.power_on()
+    outdoor_sensor.power_on()
+    light_switch.power_on()
+    vacuum_cleaner.power_on()
 
-def print_message(message):
-    """
-    Helper function to print received MQTT messages.
+    time.sleep(2)
 
-    Args:
-        message: The MQTT message object containing topic and payload.
-    """
-    print(f"Message received on topic '{message.topic}': {message.payload.decode()}")
+    selection = DeviceSelector()
+    device_selected = selection.get_selection()
 
+    if device_selected == "Door Sensor":
+        door_simulation = DoorSensorSimulation(door_sensor, mqtt_manager)
+        door_simulation.simulate()
+    elif device_selected == "Indoor Sensor":
+        indoor_sensor_simulation = IndoorSensorSimulation(indoor_sensor, mqtt_manager)
+        indoor_sensor_simulation.simulate()
+    elif device_selected == "Outdoor Sensor":
+        outdoor_sensor_simulation = OutdoorSensorSimulation(
+            outdoor_sensor, mqtt_manager
+        )
+        outdoor_sensor_simulation.simulate()
+    elif device_selected == "Light Switch":
+        light_switch_simulation = LightSwitchSimulation(light_switch, mqtt_manager)
+        light_switch_simulation.simulate()
+    elif device_selected == "Vacuum Cleaner":
+        vacuum_cleaner_simulation = VacuumCleanerSimulation(
+            vacuum_cleaner, mqtt_manager
+        )
+        vacuum_cleaner_simulation.simulate()
 
-def power_on_all_devices(controller, mqtt_manager):
-    """
-    Power on all devices managed by the simulation controller.
-
-    Args:
-        controller: The SimulationController instance.
-        mqtt_manager: The MQTTManager instance.
-    """
-    for device_type in DeviceType.list():
-        print(f"Powering on {device_type}...")
-        device = controller.device_classes[device_type]("home", device_type.lower(), mqtt_manager)
-        device.power_on()
-
-
-def power_on_device(controller, selected_device, mqtt_manager):
-    """
-    Power on a single selected device.
-
-    Args:
-        controller: The SimulationController instance.
-        selected_device: The name of the selected device.
-        mqtt_manager: The MQTTManager instance.
-    """
-    print(f"Powering on {selected_device}...")
-    device = controller.device_classes[selected_device]("home", selected_device.lower(), mqtt_manager)
-    device.power_on()
+    mqtt_manager.stop()
 
 
 if __name__ == "__main__":

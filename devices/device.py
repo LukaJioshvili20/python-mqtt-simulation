@@ -5,6 +5,9 @@ class Device:
         self.device_id = device_id
         self.powered = False
 
+    def is_powered_on(self) -> bool:
+        return self.powered
+
     def power_on(self):
         """Turn on the device."""
         self.powered = True
