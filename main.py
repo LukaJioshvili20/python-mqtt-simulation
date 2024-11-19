@@ -51,11 +51,11 @@ def main():
 
     # Devices and their corresponding simulation classes
     device_simulations = {
-        DeviceType.DOOR_SENSOR: (door_sensor, DoorSensorSimulation),
-        DeviceType.INDOOR_SENSOR: (indoor_sensor, IndoorSensorSimulation),
-        DeviceType.OUTDOOR_SENSOR: (outdoor_sensor, OutdoorSensorSimulation),
-        DeviceType.LIGHT_SWITCH: (light_switch, LightSwitchSimulation),
-        DeviceType.VACUUM_CLEANER: (vacuum_cleaner, VacuumCleanerSimulation),
+        DeviceType.DOOR_SENSOR.value: (door_sensor, DoorSensorSimulation),
+        DeviceType.INDOOR_SENSOR.value: (indoor_sensor, IndoorSensorSimulation),
+        DeviceType.OUTDOOR_SENSOR.value: (outdoor_sensor, OutdoorSensorSimulation),
+        DeviceType.LIGHT_SWITCH.value: (light_switch, LightSwitchSimulation),
+        DeviceType.VACUUM_CLEANER.value: (vacuum_cleaner, VacuumCleanerSimulation),
     }
 
     if device_selected == DeviceType.ALL_DEVICES.value:
