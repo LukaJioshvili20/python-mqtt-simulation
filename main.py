@@ -57,10 +57,10 @@ def main():
         DeviceType.LIGHT_SWITCH.value: (light_switch, LightSwitchSimulation),
         DeviceType.VACUUM_CLEANER.value: (vacuum_cleaner, VacuumCleanerSimulation),
     }
-
+    threads = []
     if device_selected == DeviceType.ALL_DEVICES.value:
         print("Starting simulation for all devices... Press Ctrl+C to stop.")
-        threads = []
+
         for device_name, (device, simulation_class) in device_simulations.items():
             thread = threading.Thread(
                 target=start_simulation, args=(device, simulation_class, mqtt_manager)
@@ -69,16 +69,21 @@ def main():
             threads.append(thread)
             thread.start()
 
-        # Keep the main thread alive
-        try:
-            while True:
-                pass
-        except KeyboardInterrupt:
-            print("\nSimulation interrupted by user.")
     else:
         device, simulation_class = device_simulations[device_selected]
-        simulation = simulation_class(device, mqtt_manager)
-        simulation.simulate()
+        thread = threading.Thread(
+            target=start_simulation, args=(device, simulation_class, mqtt_manager)
+        )
+        thread.daemon = True
+        threads.append(thread)
+        thread.start()
+
+    # Keep the main thread alive
+    try:
+        while True:
+            pass
+    except KeyboardInterrupt:
+        print("\nSimulation interrupted by user.")
 
     mqtt_manager.stop()
 
