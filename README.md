@@ -28,17 +28,42 @@ device types and easy customization.
 - Python 3.8 or later
 - `pip` package manager
 - An MQTT broker (e.g., Mosquitto or HiveMQ)
-- paho : client library for mqtt
+- [paho](https://pypi.org/project/paho-mqtt/) : client library for mqtt
 
 ```
 pip install paho-mqtt
 ```
 
-- curses : menu selector for simulation options
+- [Curses](https://pypi.org/project/windows-curses/) : menu selector for simulation options
 
 ```
 pip install windows-curses
 ```
+
+- mosquitto installation for **debian**
+
+```
+sudo apt install -y mosquitto mosquitto-clients
+sudo systemctl enable mosquitto
+sudo systemctl start mosquitto
+```
+
+- mosquitto installation for **red-hat based**
+
+```
+sudo dnf install -y mosquitto mosquitto-clients
+sudo systemctl start mosquitto
+sudo systemctl enable mosquitto
+```
+
+- mosquitto installation for **macos**
+
+```
+brew install mosquitto
+brew services start mosquitto
+```
+
+- [mosquitto](https://mosquitto.org/download/) installation for **windows**
 
 ## Structure
 
