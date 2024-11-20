@@ -38,6 +38,7 @@ def main():
     light_switch = LightSwitch("group3", "device5", mqtt_manager)
     vacuum_cleaner = VacuumCleaner("group4", "device7", mqtt_manager)
 
+    print("Starting to power on devices.")
     door_sensor.power_on()
     indoor_sensor.power_on()
     outdoor_sensor.power_on()

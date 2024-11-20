@@ -2,6 +2,7 @@ from devices.device import Device
 
 import random
 
+
 class IndoorSensor(Device):
     def __init__(self, group_id, device_id, mqtt_manager):
         super().__init__(group_id, "indoor_sensor", device_id)
@@ -21,3 +22,4 @@ class IndoorSensor(Device):
             "humidity": self.read_humidity(),
             "temperature": self.read_temperature(),
         }
+

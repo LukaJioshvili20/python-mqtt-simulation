@@ -12,12 +12,10 @@ class MQTTManager:
 
     def __init__(self) -> None:
         """Initializes MQTTManager with broker configuration and an MQTT client."""
-        self.broker: str = ""
-        self.port: int = 1883
+        self._configure_broker()
+
         self.client: mqtt.Client = mqtt.Client()
         self.message_handler = MessageHandler()
-
-        self._configure_broker()
 
     def _configure_broker(self) -> None:
         """
