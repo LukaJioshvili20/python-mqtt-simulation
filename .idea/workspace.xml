@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="27dd6ce1-dd6f-49fc-b1b2-118e22a930fe" name="Changes" comment="feat: add types">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation/door_sensor_simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/door_sensor_simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation/indoor_sensor_simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/indoor_sensor_simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation/light_switch_simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/light_switch_simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation/outdoor_sensor_simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/outdoor_sensor_simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation/vacuum_cleaner_simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation/vacuum_cleaner_simulation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +69,7 @@
       <workItem from="1731854675948" duration="527000" />
       <workItem from="1731855216674" duration="5761000" />
       <workItem from="1731876516166" duration="558000" />
+      <workItem from="1732089460769" duration="523000" />
     </task>
     <task id="LOCAL-00001" summary="feat: update manual">
       <option name="closed" value="true" />

@@ -2,7 +2,7 @@ import json
 import time
 
 from broker import MQTTManager
-from devices import OutdoorSensor
+from devices import OutdoorSensor, DeviceType
 
 
 class OutdoorSensorSimulation:
@@ -20,8 +20,13 @@ class OutdoorSensorSimulation:
         """Simulate one step for the indoor sensor."""
         if self.outdoor_sensor.powered:
             data = self.outdoor_sensor.generate_data()
+            message = {
+                "device_type": DeviceType.OUTDOOR_SENSOR.value,
+                "data": data,
+            }
+
             topic = f"home/{self.outdoor_sensor.group_id}/{self.outdoor_sensor.device_type}/{self.outdoor_sensor.device_id}/update"
-            self.mqtt_manager.publish(topic, json.dumps(data))
+            self.mqtt_manager.publish(topic, json.dumps(message))
         else:
             print(
                 f"{self.outdoor_sensor.device_type} {self.outdoor_sensor.device_id} is powered OFF."

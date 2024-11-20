@@ -2,7 +2,7 @@ import json
 import time
 
 from broker import MQTTManager
-from devices import VacuumCleaner
+from devices import VacuumCleaner, DeviceType
 
 
 class VacuumCleanerSimulation:
@@ -27,11 +27,13 @@ class VacuumCleanerSimulation:
                 self.vacuum_cleaner.stop_cleaning()
 
             state = self.vacuum_cleaner.generate_state()
-
-            print(f"vacuum data {state}")
+            message = {
+                "device_type": DeviceType.VACUUM_CLEANER.value,
+                "data": state,
+            }
 
             topic = f"home/{self.vacuum_cleaner.group_id}/{self.vacuum_cleaner.device_type}/{self.vacuum_cleaner.device_id}/command/update"
-            self.mqtt_manager.publish(topic, json.dumps(state))
+            self.mqtt_manager.publish(topic, json.dumps(message))
         else:
             print(
                 f"{self.vacuum_cleaner.device_type} {self.vacuum_cleaner.device_id} is powered OFF."

@@ -32,11 +32,12 @@ def main():
 
     time.sleep(2)
 
-    door_sensor = DoorSensor("group1", "device1", mqtt_manager)
-    indoor_sensor = IndoorSensor("group2", "device3", mqtt_manager)
+    indoor_sensor = IndoorSensor("group1", "device1", mqtt_manager)
+    light_switch = LightSwitch("group1", "device2", mqtt_manager)
+    vacuum_cleaner = VacuumCleaner("group1", "device3", mqtt_manager)
+
     outdoor_sensor = IndoorSensor("group2", "device4", mqtt_manager)
-    light_switch = LightSwitch("group3", "device5", mqtt_manager)
-    vacuum_cleaner = VacuumCleaner("group4", "device7", mqtt_manager)
+    door_sensor = DoorSensor("group2", "device5", mqtt_manager)
 
     print("Starting to power on devices.")
     door_sensor.power_on()

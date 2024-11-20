@@ -2,7 +2,7 @@ import json
 import time
 
 from broker import MQTTManager
-from devices import DoorSensor
+from devices import DoorSensor, DeviceType
 
 
 class DoorSensorSimulation:
@@ -27,5 +27,10 @@ class DoorSensorSimulation:
 
         state = self.door_sensor.generate_state()
 
+        message = {
+            "device_type": DeviceType.INDOOR_SENSOR.value,
+            "data": state,
+        }
+
         topic = f"home/{self.door_sensor.group_id}/{self.door_sensor.device_type}/{self.door_sensor.device_id}/state/update"
-        self.mqtt_manager.publish(topic, json.dumps(state))
+        self.mqtt_manager.publish(topic, json.dumps(message))
