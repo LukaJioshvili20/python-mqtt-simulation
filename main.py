@@ -63,7 +63,7 @@ def main():
     if device_selected == DeviceType.ALL_DEVICES.value:
         print("Starting simulation for all devices... Press Ctrl+C to stop.")
 
-        for device_name, (device, simulation_class) in device_simulations.items():
+        for _, (device, simulation_class) in device_simulations.items():
             thread = threading.Thread(
                 target=start_simulation, args=(device, simulation_class, mqtt_manager)
             )
