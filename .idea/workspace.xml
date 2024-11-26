@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27dd6ce1-dd6f-49fc-b1b2-118e22a930fe" name="Changes" comment="feat: update readme" />
+    <list default="true" id="27dd6ce1-dd6f-49fc-b1b2-118e22a930fe" name="Changes" comment="chore: update readme path" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,6 +63,7 @@
       <workItem from="1731876516166" duration="558000" />
       <workItem from="1732089460769" duration="523000" />
       <workItem from="1732094820106" duration="797000" />
+      <workItem from="1732607048573" duration="590000" />
     </task>
     <task id="LOCAL-00001" summary="feat: update manual">
       <option name="closed" value="true" />
@@ -104,7 +105,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732095300918</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="chore: replace variable name">
+      <option name="closed" value="true" />
+      <created>1732607082746</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1732607082746</updated>
+    </task>
+    <task id="LOCAL-00007" summary="chore: update readme path">
+      <option name="closed" value="true" />
+      <created>1732607097933</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732607097933</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,6 +133,8 @@
     <MESSAGE value="refactor: naming" />
     <MESSAGE value="feat: add types" />
     <MESSAGE value="feat: update readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: update readme" />
+    <MESSAGE value="chore: replace variable name" />
+    <MESSAGE value="chore: update readme path" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update readme path" />
   </component>
 </project>
